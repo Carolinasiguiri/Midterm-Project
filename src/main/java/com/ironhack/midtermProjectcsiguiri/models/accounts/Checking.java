@@ -1,27 +1,26 @@
 package com.ironhack.midtermProjectcsiguiri.models.accounts;
 
+import com.ironhack.midtermProjectcsiguiri.Money;
 import com.ironhack.midtermProjectcsiguiri.enums.Status;
+import com.ironhack.midtermProjectcsiguiri.models.users.Users;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.GeneratorType;
+import org.hibernate.annotations.Type;
+import org.springframework.context.annotation.Bean;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 
 @Entity
-@DynamicUpdate
-public class Checking {
+public class Checking extends AccountBase{
 
 
     // PROPERTIES ------------------------------
-    private Integer id;
-    private Double balance;
     private int secretKey;
-    private String primaryOwner;
-    private String secondaryOwner;
-    private Double minimumBalance;
-    private Double penaltyFee;
-    private double monthlyMaintenanceFee;
+    @Transient
+    private Money minimumBalance;
+    @Transient
+    private Money monthlyMaintenanceFee;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -33,35 +32,23 @@ public class Checking {
     }
 
     // CONSTRUCTOR -----------------------------
-    public Checking(Double balance, int secretKey, String primaryOwner, String secondaryOwner, Double minimumBalance,
-                    Double penaltyFee, double monthlyMaintenanceFee, Status status) {
-        this.balance = balance;
+    public Checking(int secretKey, Money minimumBalance, Money monthlyMaintenanceFee, Status status) {
         this.secretKey = secretKey;
-        this.primaryOwner = primaryOwner;
-        this.secondaryOwner = secondaryOwner;
         this.minimumBalance = minimumBalance;
-        this.penaltyFee = penaltyFee;
+        this.monthlyMaintenanceFee = monthlyMaintenanceFee;
+        this.status = status;
+    }
+
+    public Checking(Money balance, Users primaryOwner, Users secondaryOwner, Double penaltyFee, int secretKey, Money minimumBalance, Money monthlyMaintenanceFee, Status status) {
+        super(balance, primaryOwner, secondaryOwner, penaltyFee);
+        this.secretKey = secretKey;
+        this.minimumBalance = minimumBalance;
         this.monthlyMaintenanceFee = monthlyMaintenanceFee;
         this.status = status;
     }
 
 
     // GETTERS AND SETTERS ---------------------
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
 
     public int getSecretKey() {
         return secretKey;
@@ -71,43 +58,19 @@ public class Checking {
         this.secretKey = secretKey;
     }
 
-    public String getPrimaryOwner() {
-        return primaryOwner;
-    }
-
-    public void setPrimaryOwner(String primaryOwner) {
-        this.primaryOwner = primaryOwner;
-    }
-
-    public String getSecondaryOwner() {
-        return secondaryOwner;
-    }
-
-    public void setSecondaryOwner(String secondaryOwner) {
-        this.secondaryOwner = secondaryOwner;
-    }
-
-    public Double getMinimumBalance() {
+    public Money getMinimumBalance() {
         return minimumBalance;
     }
 
-    public void setMinimumBalance(Double minimumBalance) {
+    public void setMinimumBalance(Money minimumBalance) {
         this.minimumBalance = minimumBalance;
     }
 
-    public Double getPenaltyFee() {
-        return penaltyFee;
-    }
-
-    public void setPenaltyFee(Double penaltyFee) {
-        this.penaltyFee = penaltyFee;
-    }
-
-    public double getMonthlyMaintenanceFee() {
+    public Money getMonthlyMaintenanceFee() {
         return monthlyMaintenanceFee;
     }
 
-    public void setMonthlyMaintenanceFee(double monthlyMaintenanceFee) {
+    public void setMonthlyMaintenanceFee(Money monthlyMaintenanceFee) {
         this.monthlyMaintenanceFee = monthlyMaintenanceFee;
     }
 
@@ -121,3 +84,4 @@ public class Checking {
 
 
 }
+

@@ -2,16 +2,17 @@ package com.ironhack.midtermProjectcsiguiri.models.users;
 
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@DynamicUpdate
 public class AccountHolders extends Users{
 
 
     // PROPERTIES ---------------------------
     private Date birth;
+
+    @ManyToOne
     private PrimaryAddress primaryAddress;
 
 
