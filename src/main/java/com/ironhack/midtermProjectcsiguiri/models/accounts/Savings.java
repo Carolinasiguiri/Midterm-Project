@@ -20,6 +20,13 @@ public class Savings extends AccountBase{
     @Transient
     private Money STANDAR_MINBALANCE = new Money(new BigDecimal(1000));
 
+    private BigDecimal MAX_INTEREST = new BigDecimal(0.5);
+
+    @Transient
+    private Money MIN_MINBALANCE = new Money (new BigDecimal(100));
+
+    @Transient
+    private Money minBalance = STANDAR_MINBALANCE;
 
     // EMPTY CONSTRUCTOR ----------------------------------------------------
     public Savings() {
@@ -28,16 +35,66 @@ public class Savings extends AccountBase{
 
 
     // CONSTRUCTOR -----------------------------------------------------------
-    public Savings(Status status, BigDecimal interest) {
+    public Savings(Status status, BigDecimal interest, Money minBalance) throws Exception {
         this.status = status;
-        this.interest = interest;
+
+        if(MAX_INTEREST.compareTo(interest) == 1) {
+            throw new Exception("El interés no puede ser mayor a 0.5");
+        } else {
+            this.interest = interest;
+        }
+
+       if(MIN_MINBALANCE.getAmount().compareTo(minBalance.getAmount()) == 1) {
+            throw new Exception("El saldo mínimo no puede ser menor de 100");
+        } else {
+            this.minBalance = minBalance;
+        }
+
     }
 
-    public Savings(Money balance, Users primaryOwner, Users secondaryOwner, Money penaltyFee, Status status, BigDecimal interest) {
-        super(balance, primaryOwner, secondaryOwner, penaltyFee);
+    public Savings(Money balance, Users primaryOwner, Users secondaryOwner, Status status, BigDecimal interest, Money minBalance) throws Exception {
+        super(balance, primaryOwner, secondaryOwner);
         this.status = status;
-        this.interest = interest;
+
+        if(MAX_INTEREST.compareTo(interest) == 1) {
+            throw new Exception("El interés no puede ser mayor a 0.5");
+        } else {
+            this.interest = interest;
+        }
+
+        if(MIN_MINBALANCE.getAmount().compareTo(minBalance.getAmount()) == 1) {
+            throw new Exception("El saldo mínimo no puede ser menor de 100");
+        } else {
+            this.minBalance = minBalance;
+        }
+
     }
+
+    public Savings(Money balance, Users primaryOwner, Users secondaryOwner, Status status, BigDecimal interest) throws Exception {
+        super(balance, primaryOwner, secondaryOwner);
+        this.status = status;
+
+        if(MAX_INTEREST.compareTo(interest) == 1) {
+            throw new Exception("El interés no puede ser mayor a 0.5");
+        } else {
+            this.interest = interest;
+        }
+
+    }
+
+    public Savings(Money balance, Users primaryOwner, Users secondaryOwner, Status status, Money minBalance) throws Exception {
+        super(balance, primaryOwner, secondaryOwner);
+        this.status = status;
+
+        if(MIN_MINBALANCE.getAmount().compareTo(minBalance.getAmount()) == 1) {
+            throw new Exception("El saldo mínimo no puede ser menor de 100");
+        } else {
+            this.minBalance = minBalance;
+        }
+
+    }
+
+
 
 
     // GETTERS AND SETTER -----------------------------------------------------

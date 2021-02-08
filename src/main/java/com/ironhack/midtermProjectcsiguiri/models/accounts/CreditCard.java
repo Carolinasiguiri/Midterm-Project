@@ -17,6 +17,14 @@ public class CreditCard extends AccountBase{
     @Transient
     private Money STANDAR_CREDITMAX = new Money(new BigDecimal(100));
 
+    @Transient
+    private Money MAX_CREDITMAX = new Money(new BigDecimal(100.000));
+
+    @Transient
+    private Money creditLimit;
+
+    private BigDecimal MIN_INTEREST = new BigDecimal(0.1);
+
     // EMPTY CONSTRUCTOR ---------------------
     public CreditCard() {
 
@@ -24,16 +32,68 @@ public class CreditCard extends AccountBase{
 
 
     // CONSTRUCTOR ---------------------------
-    public CreditCard(BigDecimal STANDAR_INTEREST, Money creditMax) {
+    public CreditCard(BigDecimal interest, Money creditLimit) throws Exception {
 
-        this.STANDAR_CREDITMAX = creditMax;
+        if(MIN_INTEREST.compareTo(interest) == -1) {
+            throw new Exception("El interés no puede ser menor a 0.1");
+        } else {
+            this.interest = interest;
+        }
+
+        if(STANDAR_CREDITMAX.getAmount().compareTo(creditLimit.getAmount()) == 1) {
+            throw new Exception("El límite de crédito no puede ser menor de 100");
+        } else if(MAX_CREDITMAX.getAmount().compareTo(creditLimit.getAmount()) == -1) {
+            throw new Exception("El límite de crédito no puede ser superior a 100.000");
+        } else {
+            this.creditLimit = creditLimit;
+        }
 
     }
 
-    public CreditCard(Money balance, Users primaryOwner, Users secondaryOwner, Double penaltyFee, Money creditMax) {
+    public CreditCard(Money balance, Users primaryOwner, Users secondaryOwner, Money creditLimit, BigDecimal interest) throws Exception {
 
-        super(balance, primaryOwner, secondaryOwner, penaltyFee);
-        this.STANDAR_CREDITMAX = creditMax;
+        super(balance, primaryOwner, secondaryOwner);
+
+        if(MIN_INTEREST.compareTo(interest) == -1) {
+            throw new Exception("El interés no puede ser menor a 0.1");
+        } else {
+            this.interest = interest;
+        }
+
+        if(STANDAR_CREDITMAX.getAmount().compareTo(creditLimit.getAmount()) == 1) {
+            throw new Exception("El límite de crédito no puede ser menor de 100");
+        } else if(MAX_CREDITMAX.getAmount().compareTo(creditLimit.getAmount()) == -1) {
+            throw new Exception("El límite de crédito no puede ser superior a 100.000");
+        } else {
+            this.creditLimit = creditLimit;
+        }
+
+    }
+
+    public CreditCard(Money balance, Users primaryOwner, Users secondaryOwner, Money creditLimit) throws Exception {
+
+        super(balance, primaryOwner, secondaryOwner);
+
+
+        if(STANDAR_CREDITMAX.getAmount().compareTo(creditLimit.getAmount()) == 1) {
+            throw new Exception("El límite de crédito no puede ser menor de 100");
+        } else if(MAX_CREDITMAX.getAmount().compareTo(creditLimit.getAmount()) == -1) {
+            throw new Exception("El límite de crédito no puede ser superior a 100.000");
+        } else {
+            this.creditLimit = creditLimit;
+        }
+
+    }
+
+    public CreditCard(Money balance, Users primaryOwner, Users secondaryOwner, BigDecimal interest) throws Exception {
+
+        super(balance, primaryOwner, secondaryOwner);
+
+        if(MIN_INTEREST.compareTo(interest) == -1) {
+            throw new Exception("El interés no puede ser menor a 0.1");
+        } else {
+            this.interest = interest;
+        }
 
     }
 
@@ -43,9 +103,11 @@ public class CreditCard extends AccountBase{
         return STANDAR_CREDITMAX;
     }
 
-    public void setCreditMax(Money creditMax) {
-        this.STANDAR_CREDITMAX = creditMax;
+
+    public Money getMAX_CREDITMAX() {
+        return MAX_CREDITMAX;
     }
+
 }
 
 

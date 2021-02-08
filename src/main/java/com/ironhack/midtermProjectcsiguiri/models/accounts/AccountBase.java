@@ -32,11 +32,10 @@ public class AccountBase {
     }
 
     // CONSTRUCTOR ---------------------
-    public AccountBase(Money balance, Users primaryOwner, Users secondaryOwner, Money STANDAR_PENALTYFEE) {
+    public AccountBase(Money balance, Users primaryOwner, Users secondaryOwner) {
         this.balance = balance;
         this.primaryOwner = primaryOwner;
         this.secondaryOwner = secondaryOwner;
-        this.STANDAR_PENALTYFEE = STANDAR_PENALTYFEE;
     }
 
 
@@ -73,11 +72,8 @@ public class AccountBase {
         this.secondaryOwner = secondaryOwner;
     }
 
-    public Money getPenaltyFee() {
+    public Money getSTANDAR_PENALTYFEE() {
         return STANDAR_PENALTYFEE;
     }
 
-    public void setPenaltyFee(Money penaltyFee) {
-        this.STANDAR_PENALTYFEE = penaltyFee;
-    }
 }

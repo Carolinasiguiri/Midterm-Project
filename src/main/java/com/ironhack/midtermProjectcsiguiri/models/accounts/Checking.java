@@ -41,8 +41,8 @@ public class Checking extends AccountBase{
         this.status = status;
     }
 
-    public Checking(Money balance, Users primaryOwner, Users secondaryOwner, Double penaltyFee, int secretKey, Money STANDAR_MINBALANCE, Money STANDAR_MONTHLYMAINTENANCEFEE, Status status) {
-        super(balance, primaryOwner, secondaryOwner, penaltyFee);
+    public Checking(Money balance, Users primaryOwner, Users secondaryOwner, Money penaltyFee, int secretKey, Money STANDAR_MINBALANCE, Money STANDAR_MONTHLYMAINTENANCEFEE, Status status) {
+        super(balance, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
         this.STANDAR_MINBALANCE = STANDAR_MINBALANCE;
         this.STANDAR_MONTHLYMAINTENANCEFEE = STANDAR_MONTHLYMAINTENANCEFEE;
@@ -64,16 +64,8 @@ public class Checking extends AccountBase{
         return STANDAR_MINBALANCE;
     }
 
-    public void setSTANDAR_MINBALANCE(Money STANDAR_MINBALANCE) {
-        this.STANDAR_MINBALANCE = STANDAR_MINBALANCE;
-    }
-
     public Money getSTANDAR_MONTHLYMAINTENANCEFEE() {
         return STANDAR_MONTHLYMAINTENANCEFEE;
-    }
-
-    public void setSTANDAR_MONTHLYMAINTENANCEFEE(Money STANDAR_MONTHLYMAINTENANCEFEE) {
-        this.STANDAR_MONTHLYMAINTENANCEFEE = STANDAR_MONTHLYMAINTENANCEFEE;
     }
 
     public Status getStatus() {

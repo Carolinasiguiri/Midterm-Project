@@ -9,14 +9,5 @@ import javax.persistence.Table;
 public class Admins extends Users{
 
 
-    // EMPTY CONSTRUCTOR --------------------------
-    public Admins() {
-
-    }
-
-    // CONSTRUCTOR --------------------------------
-    public Admins(String name) {
-        super(name);
-    }
 
 }
