@@ -9,6 +9,7 @@ import org.hibernate.annotations.Type;
 import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 
 @Entity
@@ -18,9 +19,10 @@ public class Checking extends AccountBase{
     // PROPERTIES ------------------------------
     private int secretKey;
     @Transient
-    private Money minimumBalance;
+    private Money STANDAR_MINBALANCE = new Money(new BigDecimal(250));
     @Transient
-    private Money monthlyMaintenanceFee;
+    private Money STANDAR_MONTHLYMAINTENANCEFEE = new Money(new BigDecimal(12));
+
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -32,18 +34,18 @@ public class Checking extends AccountBase{
     }
 
     // CONSTRUCTOR -----------------------------
-    public Checking(int secretKey, Money minimumBalance, Money monthlyMaintenanceFee, Status status) {
+    public Checking(int secretKey, Money STANDAR_MINBALANCE, Money STANDAR_MONTHLYMAINTENANCEFEE, Status status) {
         this.secretKey = secretKey;
-        this.minimumBalance = minimumBalance;
-        this.monthlyMaintenanceFee = monthlyMaintenanceFee;
+        this.STANDAR_MINBALANCE = STANDAR_MINBALANCE;
+        this.STANDAR_MONTHLYMAINTENANCEFEE = STANDAR_MONTHLYMAINTENANCEFEE;
         this.status = status;
     }
 
-    public Checking(Money balance, Users primaryOwner, Users secondaryOwner, Double penaltyFee, int secretKey, Money minimumBalance, Money monthlyMaintenanceFee, Status status) {
+    public Checking(Money balance, Users primaryOwner, Users secondaryOwner, Double penaltyFee, int secretKey, Money STANDAR_MINBALANCE, Money STANDAR_MONTHLYMAINTENANCEFEE, Status status) {
         super(balance, primaryOwner, secondaryOwner, penaltyFee);
         this.secretKey = secretKey;
-        this.minimumBalance = minimumBalance;
-        this.monthlyMaintenanceFee = monthlyMaintenanceFee;
+        this.STANDAR_MINBALANCE = STANDAR_MINBALANCE;
+        this.STANDAR_MONTHLYMAINTENANCEFEE = STANDAR_MONTHLYMAINTENANCEFEE;
         this.status = status;
     }
 
@@ -58,20 +60,20 @@ public class Checking extends AccountBase{
         this.secretKey = secretKey;
     }
 
-    public Money getMinimumBalance() {
-        return minimumBalance;
+    public Money getSTANDAR_MINBALANCE() {
+        return STANDAR_MINBALANCE;
     }
 
-    public void setMinimumBalance(Money minimumBalance) {
-        this.minimumBalance = minimumBalance;
+    public void setSTANDAR_MINBALANCE(Money STANDAR_MINBALANCE) {
+        this.STANDAR_MINBALANCE = STANDAR_MINBALANCE;
     }
 
-    public Money getMonthlyMaintenanceFee() {
-        return monthlyMaintenanceFee;
+    public Money getSTANDAR_MONTHLYMAINTENANCEFEE() {
+        return STANDAR_MONTHLYMAINTENANCEFEE;
     }
 
-    public void setMonthlyMaintenanceFee(Money monthlyMaintenanceFee) {
-        this.monthlyMaintenanceFee = monthlyMaintenanceFee;
+    public void setSTANDAR_MONTHLYMAINTENANCEFEE(Money STANDAR_MONTHLYMAINTENANCEFEE) {
+        this.STANDAR_MONTHLYMAINTENANCEFEE = STANDAR_MONTHLYMAINTENANCEFEE;
     }
 
     public Status getStatus() {

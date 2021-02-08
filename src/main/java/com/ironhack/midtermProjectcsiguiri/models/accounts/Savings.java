@@ -33,7 +33,7 @@ public class Savings extends AccountBase{
         this.interest = interest;
     }
 
-    public Savings(Money balance, Users primaryOwner, Users secondaryOwner, Double penaltyFee, Status status, BigDecimal interest) {
+    public Savings(Money balance, Users primaryOwner, Users secondaryOwner, Money penaltyFee, Status status, BigDecimal interest) {
         super(balance, primaryOwner, secondaryOwner, penaltyFee);
         this.status = status;
         this.interest = interest;

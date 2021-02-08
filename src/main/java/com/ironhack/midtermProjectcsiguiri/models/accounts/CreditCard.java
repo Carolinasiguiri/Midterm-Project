@@ -12,9 +12,10 @@ import java.math.BigDecimal;
 public class CreditCard extends AccountBase{
 
     // PROPERTIES ----------------------------
+    private BigDecimal STANDAR_INTEREST = new BigDecimal(0.2);
+    private BigDecimal interest = STANDAR_INTEREST;
     @Transient
-    private Money creditMax;
-
+    private Money STANDAR_CREDITMAX = new Money(new BigDecimal(100));
 
     // EMPTY CONSTRUCTOR ---------------------
     public CreditCard() {
@@ -23,23 +24,27 @@ public class CreditCard extends AccountBase{
 
 
     // CONSTRUCTOR ---------------------------
-    public CreditCard(Money creditMax) {
-        this.creditMax = creditMax;
+    public CreditCard(BigDecimal STANDAR_INTEREST, Money creditMax) {
+
+        this.STANDAR_CREDITMAX = creditMax;
+
     }
 
     public CreditCard(Money balance, Users primaryOwner, Users secondaryOwner, Double penaltyFee, Money creditMax) {
+
         super(balance, primaryOwner, secondaryOwner, penaltyFee);
-        this.creditMax = creditMax;
+        this.STANDAR_CREDITMAX = creditMax;
+
     }
 
 
     // GETTERS AND SETTERS -------------------
     public Money getCreditMax() {
-        return creditMax;
+        return STANDAR_CREDITMAX;
     }
 
     public void setCreditMax(Money creditMax) {
-        this.creditMax = creditMax;
+        this.STANDAR_CREDITMAX = creditMax;
     }
 }
 

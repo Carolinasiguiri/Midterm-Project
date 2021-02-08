@@ -5,6 +5,7 @@ import com.ironhack.midtermProjectcsiguiri.models.users.Users;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 public class AccountBase {
@@ -15,12 +16,14 @@ public class AccountBase {
     private Integer id;
     @Transient
     private Money balance;
+
     @OneToOne
     private Users primaryOwner;
     @OneToOne
     private Users secondaryOwner;
 
-    private Double penaltyFee;
+    @Transient
+    private Money STANDAR_PENALTYFEE = new Money(new BigDecimal(40));
 
 
     // EMPTY CONSTRUCTOR --------------
@@ -29,11 +32,11 @@ public class AccountBase {
     }
 
     // CONSTRUCTOR ---------------------
-    public AccountBase(Money balance, Users primaryOwner, Users secondaryOwner, Double penaltyFee) {
+    public AccountBase(Money balance, Users primaryOwner, Users secondaryOwner, Money STANDAR_PENALTYFEE) {
         this.balance = balance;
         this.primaryOwner = primaryOwner;
         this.secondaryOwner = secondaryOwner;
-        this.penaltyFee = penaltyFee;
+        this.STANDAR_PENALTYFEE = STANDAR_PENALTYFEE;
     }
 
 
@@ -70,11 +73,11 @@ public class AccountBase {
         this.secondaryOwner = secondaryOwner;
     }
 
-    public Double getPenaltyFee() {
-        return penaltyFee;
+    public Money getPenaltyFee() {
+        return STANDAR_PENALTYFEE;
     }
 
-    public void setPenaltyFee(Double penaltyFee) {
-        this.penaltyFee = penaltyFee;
+    public void setPenaltyFee(Money penaltyFee) {
+        this.STANDAR_PENALTYFEE = penaltyFee;
     }
 }
