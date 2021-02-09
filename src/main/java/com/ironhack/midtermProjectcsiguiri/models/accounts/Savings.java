@@ -113,4 +113,14 @@ public class Savings extends AccountBase{
     public void setInterest(BigDecimal interest) {
         this.interest = interest;
     }
+
+
+    @Override
+    public void setBalance(Money balance) {
+
+        super.setBalance(balance);
+        super.multar(MIN_MINBALANCE);
+
+    }
+
 }

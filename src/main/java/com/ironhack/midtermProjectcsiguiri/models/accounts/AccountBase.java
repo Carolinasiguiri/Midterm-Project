@@ -53,7 +53,9 @@ public class AccountBase {
     }
 
     public void setBalance(Money balance) {
+
         this.balance = balance;
+
     }
 
     public Users getPrimaryOwner() {
@@ -75,5 +77,17 @@ public class AccountBase {
     public Money getSTANDAR_PENALTYFEE() {
         return STANDAR_PENALTYFEE;
     }
+
+
+    public void multar(Money MIN_BALANCE) {
+
+        if(getBalance().getAmount().compareTo(MIN_BALANCE.getAmount()) == -1) {
+
+            this.balance = (new Money(getBalance().decreaseAmount(STANDAR_PENALTYFEE)));
+
+        }
+
+    }
+
 
 }

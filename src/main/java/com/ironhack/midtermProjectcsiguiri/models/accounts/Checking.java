@@ -41,7 +41,7 @@ public class Checking extends AccountBase{
         this.status = status;
     }
 
-    public Checking(Money balance, Users primaryOwner, Users secondaryOwner, Money penaltyFee, int secretKey, Money STANDAR_MINBALANCE, Money STANDAR_MONTHLYMAINTENANCEFEE, Status status) {
+    public Checking(Money balance, Users primaryOwner, Users secondaryOwner, int secretKey, Money STANDAR_MINBALANCE, Money STANDAR_MONTHLYMAINTENANCEFEE, Status status) {
         super(balance, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
         this.STANDAR_MINBALANCE = STANDAR_MINBALANCE;
@@ -74,6 +74,14 @@ public class Checking extends AccountBase{
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public void setBalance(Money balance) {
+
+        super.setBalance(balance);
+        super.multar(STANDAR_MINBALANCE);
+
     }
 
 

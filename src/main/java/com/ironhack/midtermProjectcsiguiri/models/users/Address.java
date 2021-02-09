@@ -6,14 +6,10 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-public class PrimaryAddress {
+@Embeddable
+public class Address {
 
     // PROPERTIES ----------------------------------------------------------------------
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
     private String address;
     private int number;
     private String country;
@@ -21,13 +17,13 @@ public class PrimaryAddress {
 
 
     // EMPTY CONSTRUCTOR ----------------------------------------------------------------
-    public PrimaryAddress() {
+    public Address() {
 
     }
 
 
     // CONSTRUCTOR ----------------------------------------------------------------------
-    public PrimaryAddress(String address, int number, String country, String city) {
+    public Address(String address, int number, String country, String city) {
         this.address = address;
         this.number = number;
         this.country = country;
