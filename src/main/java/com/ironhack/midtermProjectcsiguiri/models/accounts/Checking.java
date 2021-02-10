@@ -22,6 +22,10 @@ public class Checking extends AccountBase{
     private Money STANDAR_MINBALANCE = new Money(new BigDecimal(250));
     @Transient
     private Money STANDAR_MONTHLYMAINTENANCEFEE = new Money(new BigDecimal(12));
+    @Transient
+    private Money monthlyMaintenanceFee = STANDAR_MONTHLYMAINTENANCEFEE;
+    @Transient
+    private Money minBalance = STANDAR_MINBALANCE;
 
 
     @Enumerated(EnumType.STRING)
@@ -34,18 +38,14 @@ public class Checking extends AccountBase{
     }
 
     // CONSTRUCTOR -----------------------------
-    public Checking(int secretKey, Money STANDAR_MINBALANCE, Money STANDAR_MONTHLYMAINTENANCEFEE, Status status) {
+    public Checking(int secretKey, Status status) {
         this.secretKey = secretKey;
-        this.STANDAR_MINBALANCE = STANDAR_MINBALANCE;
-        this.STANDAR_MONTHLYMAINTENANCEFEE = STANDAR_MONTHLYMAINTENANCEFEE;
         this.status = status;
     }
 
-    public Checking(Money balance, Users primaryOwner, Users secondaryOwner, int secretKey, Money STANDAR_MINBALANCE, Money STANDAR_MONTHLYMAINTENANCEFEE, Status status) {
+    public Checking(Money balance, Users primaryOwner, Users secondaryOwner, int secretKey, Status status) {
         super(balance, primaryOwner, secondaryOwner);
         this.secretKey = secretKey;
-        this.STANDAR_MINBALANCE = STANDAR_MINBALANCE;
-        this.STANDAR_MONTHLYMAINTENANCEFEE = STANDAR_MONTHLYMAINTENANCEFEE;
         this.status = status;
     }
 
@@ -76,6 +76,23 @@ public class Checking extends AccountBase{
         this.status = status;
     }
 
+    public Money getMonthlyMaintenanceFee() {
+        return monthlyMaintenanceFee;
+    }
+
+    public void setMonthlyMaintenanceFee(Money monthlyMaintenanceFee) {
+        this.monthlyMaintenanceFee = monthlyMaintenanceFee;
+    }
+
+    public Money getMinBalance() {
+        return minBalance;
+    }
+
+    public void setMinBalance(Money minBalance) {
+        this.minBalance = minBalance;
+    }
+
+
     @Override
     public void setBalance(Money balance) {
 
@@ -83,7 +100,6 @@ public class Checking extends AccountBase{
         super.multar(STANDAR_MINBALANCE);
 
     }
-
 
 }
 

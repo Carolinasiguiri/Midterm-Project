@@ -1,6 +1,11 @@
 package com.ironhack.midtermProjectcsiguiri.models.users;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.ironhack.midtermProjectcsiguiri.Money;
+import com.ironhack.midtermProjectcsiguiri.enums.Status;
+import com.ironhack.midtermProjectcsiguiri.models.accounts.AccountBase;
+import com.ironhack.midtermProjectcsiguiri.models.accounts.Checking;
+import com.ironhack.midtermProjectcsiguiri.models.accounts.StudentChecking;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -76,6 +81,18 @@ public class AccountHolders extends Users{
 
     public void setMailingAddress(Address mailingAddress) {
         this.mailingAddress = mailingAddress;
+    }
+
+
+    public AccountBase createChecking(Money balance, Users secondaryOwner, Status status, int secretKey) {
+
+        if(new Date().getYear() - birth.getYear() < 24) {
+
+          return new StudentChecking(balance, this, secondaryOwner, status, secretKey);
+
+        }
+        return new Checking(balance, this, secondaryOwner, secretKey, status);
+
     }
 
 }
