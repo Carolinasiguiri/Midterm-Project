@@ -41,7 +41,7 @@ public class AccountHolderController {
 
     @PatchMapping("/balance-transfer")
     @ResponseStatus(HttpStatus.OK)
-    public void findAll(@AuthenticationPrincipal UserDetails userDetails,
+    public void tranferUsers(@AuthenticationPrincipal UserDetails userDetails,
                          @RequestBody Integer id_start,
                          @RequestBody Money balance,
                          @RequestBody Integer id_end) throws Exception {
