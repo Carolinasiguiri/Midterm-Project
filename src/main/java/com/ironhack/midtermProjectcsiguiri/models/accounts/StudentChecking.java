@@ -45,7 +45,6 @@ public class StudentChecking extends AccountBase{
         this.status = status;
     }
 
-
     public int getSecretKey() {
         return secretKey;
     }

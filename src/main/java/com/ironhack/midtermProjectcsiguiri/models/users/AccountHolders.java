@@ -86,7 +86,8 @@ public class AccountHolders extends Users{
 
     public AccountBase createChecking(Money balance, Users secondaryOwner, Status status, int secretKey) {
 
-        if(new Date().getYear() - birth.getYear() < 24) {
+
+        if((new Date().getYear() - birth.getYear()) < 24) {
 
           return new StudentChecking(balance, this, secondaryOwner, status, secretKey);
 
