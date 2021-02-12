@@ -111,6 +111,7 @@ public class AccountBase {
 
     }
 
+
     public void checkInterest(BigDecimal interest, Boolean isAnual) {
 
        Date date = new Date(getInterestDate().toString());
