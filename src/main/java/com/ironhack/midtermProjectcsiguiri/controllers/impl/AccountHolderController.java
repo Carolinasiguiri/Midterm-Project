@@ -1,8 +1,10 @@
 package com.ironhack.midtermProjectcsiguiri.controllers.impl;
 
 import com.ironhack.midtermProjectcsiguiri.Money;
+import com.ironhack.midtermProjectcsiguiri.enums.Status;
 import com.ironhack.midtermProjectcsiguiri.models.accounts.AccountBase;
 import com.ironhack.midtermProjectcsiguiri.models.users.AccountHolders;
+import com.ironhack.midtermProjectcsiguiri.models.users.Users;
 import com.ironhack.midtermProjectcsiguiri.repository.AccountBaseRepository;
 import com.ironhack.midtermProjectcsiguiri.repository.AccountHoldersRepository;
 import com.ironhack.midtermProjectcsiguiri.services.interfaces.IAccountHoldersService;
@@ -23,7 +25,7 @@ public class AccountHolderController {
     private AccountBaseRepository accountBaseRepository;
 
     @Autowired
-    private IAccountHoldersService iAccountHoldersService;
+    private AccountHoldersRepository accountHoldersRepository;
 
     @GetMapping("/account-balance/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -71,6 +73,30 @@ public class AccountHolderController {
         }
 
     }
+
+    @PostMapping("/create-checking")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createChecking(@AuthenticationPrincipal UserDetails userDetails,
+                               @RequestBody Money balance,
+                               @RequestBody Users secondaryOwner,
+                               @RequestBody int secretKey) throws  Exception {
+
+        Optional<AccountHolders> user = accountHoldersRepository.findById(Integer.parseInt(userDetails.getUsername()));
+
+        if(user.isPresent()) {
+
+            accountBaseRepository.save(user.get().createChecking(balance, secondaryOwner, Status.ACTIVE, secretKey));
+
+        } else {
+
+            throw new Exception("No se ha podido crear la cuenta");
+
+        }
+
+
+
+    }
+
 
 
 }

@@ -3,6 +3,8 @@ package com.ironhack.midtermProjectcsiguiri.models.users;
 import com.ironhack.midtermProjectcsiguiri.Money;
 import com.ironhack.midtermProjectcsiguiri.enums.Status;
 import com.ironhack.midtermProjectcsiguiri.models.accounts.AccountBase;
+import com.ironhack.midtermProjectcsiguiri.models.accounts.Checking;
+import com.ironhack.midtermProjectcsiguiri.models.accounts.StudentChecking;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -24,7 +26,9 @@ class AccountHoldersTest {
 
         AccountBase test1 = pepita.createChecking(new Money(new BigDecimal(300)), pepita, Status.ACTIVE, 1234);
 
-         assertEquals("Checking", test1.getClass());
+        StudentChecking test2 = new StudentChecking();
+
+        assertEquals(test2.getClass(), test1.getClass());
 
         AccountHolders pepito = new AccountHolders
                 ("pepita",
