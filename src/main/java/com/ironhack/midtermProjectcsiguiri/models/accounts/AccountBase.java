@@ -29,6 +29,8 @@ public class AccountBase {
     private Date creationDate;
     private Date interestDate;
 
+    private Date lastTransaction;
+
 
     // EMPTY CONSTRUCTOR --------------
     public AccountBase() {
@@ -99,6 +101,15 @@ public class AccountBase {
     public void setInterestDate(Date interestDate) {
         this.interestDate = interestDate;
     }
+
+    public Date getLastTransaction() {
+        return lastTransaction;
+    }
+
+    public void setLastTransaction(Date lastTransaction) {
+        this.lastTransaction = lastTransaction;
+    }
+
 
 
     public void multar(Money MIN_BALANCE) {

@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 public class Savings extends AccountBase{
@@ -27,6 +28,7 @@ public class Savings extends AccountBase{
 
     @Transient
     private Money minBalance = STANDAR_MINBALANCE;
+
 
     // EMPTY CONSTRUCTOR ----------------------------------------------------
     public Savings() {
@@ -129,6 +131,22 @@ public class Savings extends AccountBase{
 
         super.setBalance(balance);
         super.multar(MIN_MINBALANCE);
+
+    }
+
+    public boolean checkInSeg() {
+
+        Date checkDate = getLastTransaction();
+
+        checkDate.setHours(checkDate.getSeconds()+1);
+
+        if(checkDate.compareTo(new Date()) == 1 ){
+
+            return true;
+
+        }
+
+        return false;
 
     }
 

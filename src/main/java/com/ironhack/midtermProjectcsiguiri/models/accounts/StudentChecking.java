@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 public class StudentChecking extends AccountBase{
@@ -53,6 +54,23 @@ public class StudentChecking extends AccountBase{
         this.secretKey = secretKey;
     }
 
+
+
+    public boolean checkInSeg() {
+
+        Date checkDate = getLastTransaction();
+
+        checkDate.setHours(checkDate.getSeconds()+1);
+
+        if(checkDate.compareTo(new Date()) == 1 ){
+
+            return true;
+
+        }
+
+        return false;
+
+    }
 
 }
 

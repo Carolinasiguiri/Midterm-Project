@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 
 @Entity
@@ -98,6 +99,22 @@ public class Checking extends AccountBase{
 
         super.setBalance(balance);
         super.multar(STANDAR_MINBALANCE);
+
+    }
+
+    public boolean checkInSeg() {
+
+        Date checkDate = getLastTransaction();
+
+        checkDate.setHours(checkDate.getSeconds()+1);
+
+        if(checkDate.compareTo(new Date()) == 1 ){
+
+            return true;
+
+        }
+
+        return false;
 
     }
 
