@@ -3,7 +3,9 @@ package com.ironhack.midtermProjectcsiguiri.models.accounts;
 import com.ironhack.midtermProjectcsiguiri.Money;
 import com.ironhack.midtermProjectcsiguiri.enums.Status;
 import com.ironhack.midtermProjectcsiguiri.models.users.Users;
+import com.ironhack.midtermProjectcsiguiri.repository.HistoryRepository;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -148,6 +150,27 @@ public class Savings extends AccountBase{
 
         return false;
 
+    }
+
+    @Autowired
+    private HistoryRepository historyRepository;
+    public boolean chekIn24Hours(){
+
+        if(historyRepository.checkLast24Hours(getId()).getAmount().compareTo(
+                historyRepository.checkMedia(getId()).getAmount().multiply(new BigDecimal(1.5)))==1){
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
+    public void checkFraud(){
+        if(checkInSeg() || chekIn24Hours()){
+            setStatus(Status.FROZEN);
+        }
     }
 
 
