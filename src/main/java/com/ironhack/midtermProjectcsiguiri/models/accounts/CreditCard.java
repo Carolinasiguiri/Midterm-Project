@@ -108,6 +108,16 @@ public class CreditCard extends AccountBase{
         return MAX_CREDITMAX;
     }
 
+
+    @Override
+    public Money getBalance() {
+
+        checkInterest(interest, false);
+
+        return getBalance();
+
+    }
+
 }
 
 

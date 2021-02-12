@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 public class AccountBase {
@@ -25,6 +26,9 @@ public class AccountBase {
     @Transient
     private Money STANDAR_PENALTYFEE = new Money(new BigDecimal(40));
 
+    private Date creationDate;
+    private Date interestDate;
+
 
     // EMPTY CONSTRUCTOR --------------
     public AccountBase() {
@@ -36,6 +40,8 @@ public class AccountBase {
         this.balance = balance;
         this.primaryOwner = primaryOwner;
         this.secondaryOwner = secondaryOwner;
+        this.creationDate = new Date();
+        this.interestDate = creationDate;
     }
 
 
@@ -78,12 +84,46 @@ public class AccountBase {
         return STANDAR_PENALTYFEE;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Date getInterestDate() {
+        return interestDate;
+    }
+
+    public void setInterestDate(Date interestDate) {
+        this.interestDate = interestDate;
+    }
+
 
     public void multar(Money MIN_BALANCE) {
 
         if(getBalance().getAmount().compareTo(MIN_BALANCE.getAmount()) == -1) {
 
             this.balance = (new Money(getBalance().decreaseAmount(STANDAR_PENALTYFEE)));
+
+        }
+
+    }
+
+    public void checkInterest(BigDecimal interest, Boolean isAnual) {
+
+       Date date = new Date(getInterestDate().toString());
+
+        if(isAnual) date.setYear(date.getYear()+1);
+        else date.setMonth(date.getMonth()+1);
+
+
+        if(date.compareTo(new Date()) == -1) {
+
+            setBalance(new Money(getBalance().increaseAmount(getBalance().getAmount().multiply(interest))));
+
+            setInterestDate(new Date());
 
         }
 

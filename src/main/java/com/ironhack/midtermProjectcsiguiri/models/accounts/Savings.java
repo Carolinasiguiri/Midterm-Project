@@ -94,6 +94,15 @@ public class Savings extends AccountBase{
 
     }
 
+    @Override
+    public Money getBalance() {
+
+        checkInterest(interest, true);
+
+        return getBalance();
+
+    }
+
 
 
 
@@ -122,5 +131,6 @@ public class Savings extends AccountBase{
         super.multar(MIN_MINBALANCE);
 
     }
+
 
 }
