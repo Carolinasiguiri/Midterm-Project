@@ -15,13 +15,18 @@ public class AccountBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Transient
+    @AttributeOverrides({
+            @AttributeOverride( name = "currency", column = @Column(name = "balance_currency")),
+            @AttributeOverride( name = "amount", column = @Column(name = "balance_amount"))
+    })
+
     private Money balance;
 
     @OneToOne
     private Users primaryOwner;
     @OneToOne
     private Users secondaryOwner;
+
 
     @Transient
     private Money STANDAR_PENALTYFEE = new Money(new BigDecimal(40));

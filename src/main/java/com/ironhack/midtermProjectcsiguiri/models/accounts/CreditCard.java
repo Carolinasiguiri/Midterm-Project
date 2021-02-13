@@ -3,26 +3,32 @@ package com.ironhack.midtermProjectcsiguiri.models.accounts;
 import com.ironhack.midtermProjectcsiguiri.Money;
 import com.ironhack.midtermProjectcsiguiri.models.users.Users;
 import org.hibernate.annotations.DynamicUpdate;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
 public class CreditCard extends AccountBase{
 
     // PROPERTIES ----------------------------
+    @Transient
     private BigDecimal STANDAR_INTEREST = new BigDecimal(0.2);
     private BigDecimal interest = STANDAR_INTEREST;
+
     @Transient
     private Money STANDAR_CREDITMAX = new Money(new BigDecimal(100));
 
-    @Transient
+
+   @Transient
     private Money MAX_CREDITMAX = new Money(new BigDecimal(100.000));
 
-    @Transient
-    private Money creditLimit;
+    @AttributeOverrides({
+            @AttributeOverride( name = "currency", column = @Column(name = "credit_limit_currency")),
+            @AttributeOverride( name = "amount", column = @Column(name = "credit_limit_amount"))
+    })
 
+    private Money creditLimit;
+    @Transient
     private BigDecimal MIN_INTEREST = new BigDecimal(0.1);
 
     // EMPTY CONSTRUCTOR ---------------------

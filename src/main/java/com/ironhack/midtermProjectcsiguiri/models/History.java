@@ -2,6 +2,7 @@ package com.ironhack.midtermProjectcsiguiri.models;
 
 import com.ironhack.midtermProjectcsiguiri.Money;
 import com.ironhack.midtermProjectcsiguiri.models.accounts.AccountBase;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,13 +17,17 @@ public class History {
     private String concept;
     private Date date;
 
-    @Transient
+    @AttributeOverrides({
+            @AttributeOverride( name = "currency", column = @Column(name = "balance_currency")),
+            @AttributeOverride( name = "amount", column = @Column(name = "balance_amount"))
+    })
+    @Embedded
     private Money balance;
 
-    @OneToOne
+    @ManyToOne
     private AccountBase accountStart;
 
-    @OneToOne
+    @ManyToOne
     private AccountBase accountEnd;
 
 

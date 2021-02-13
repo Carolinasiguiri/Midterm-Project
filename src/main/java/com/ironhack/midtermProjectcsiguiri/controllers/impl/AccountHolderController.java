@@ -7,6 +7,7 @@ import com.ironhack.midtermProjectcsiguiri.models.users.AccountHolders;
 import com.ironhack.midtermProjectcsiguiri.models.users.Users;
 import com.ironhack.midtermProjectcsiguiri.repository.AccountBaseRepository;
 import com.ironhack.midtermProjectcsiguiri.repository.AccountHoldersRepository;
+import com.ironhack.midtermProjectcsiguiri.repository.HistoryRepository;
 import com.ironhack.midtermProjectcsiguiri.services.interfaces.IAccountHoldersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ public class AccountHolderController {
 
     @Autowired
     private AccountHoldersRepository accountHoldersRepository;
+
 
     @GetMapping("/account-balance/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -47,6 +49,8 @@ public class AccountHolderController {
                          @RequestBody Integer id_start,
                          @RequestBody Money balance,
                          @RequestBody Integer id_end) throws Exception {
+
+
 
         if(userDetails.getUsername().equals(accountBaseRepository.findById(id_start).get().getPrimaryOwner().getName())
            ||

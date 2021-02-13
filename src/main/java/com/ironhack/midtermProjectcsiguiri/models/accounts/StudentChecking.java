@@ -4,13 +4,11 @@ import com.ironhack.midtermProjectcsiguiri.Money;
 import com.ironhack.midtermProjectcsiguiri.enums.Status;
 import com.ironhack.midtermProjectcsiguiri.models.users.Users;
 import com.ironhack.midtermProjectcsiguiri.repository.HistoryRepository;
+import com.ironhack.midtermProjectcsiguiri.services.impl.HistoryServices;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -76,18 +74,20 @@ public class StudentChecking extends AccountBase{
 
     }
 
+    @Transient
     @Autowired
-    private HistoryRepository historyRepository;
+    private HistoryServices historyServices;
     public boolean chekIn24Hours(){
 
-        if(historyRepository.checkLast24Hours(getId()).getAmount().compareTo(
-                historyRepository.checkMedia(getId()).getAmount().multiply(new BigDecimal(1.5)))==1){
+        if(historyServices.checkLast24hours(getId()).compareTo(
+                historyServices.balanceMedia(getId()).multiply(new BigDecimal(1.5)))==1){
 
             return true;
 
         }
 
         return false;
+
 
     }
 

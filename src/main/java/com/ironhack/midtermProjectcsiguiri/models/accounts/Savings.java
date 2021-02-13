@@ -4,6 +4,7 @@ import com.ironhack.midtermProjectcsiguiri.Money;
 import com.ironhack.midtermProjectcsiguiri.enums.Status;
 import com.ironhack.midtermProjectcsiguiri.models.users.Users;
 import com.ironhack.midtermProjectcsiguiri.repository.HistoryRepository;
+import com.ironhack.midtermProjectcsiguiri.services.impl.HistoryServices;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,17 +19,23 @@ public class Savings extends AccountBase{
     // PROPERTIES -----------------------------------------------------------
     @Enumerated(EnumType.STRING)
     private Status status;
+    @Transient
     private BigDecimal STANDAR_INTEREST = new BigDecimal(0.0025);
     private BigDecimal interest = STANDAR_INTEREST;
+
     @Transient
     private Money STANDAR_MINBALANCE = new Money(new BigDecimal(1000));
-
+    @Transient
     private BigDecimal MAX_INTEREST = new BigDecimal(0.5);
+
 
     @Transient
     private Money MIN_MINBALANCE = new Money (new BigDecimal(100));
 
-    @Transient
+    @AttributeOverrides({
+            @AttributeOverride( name = "currency", column = @Column(name = "min_balance_currency")),
+            @AttributeOverride( name = "amount", column = @Column(name = "min_balance_amount"))
+    })
     private Money minBalance = STANDAR_MINBALANCE;
 
 
@@ -152,18 +159,20 @@ public class Savings extends AccountBase{
 
     }
 
+    @Transient
     @Autowired
-    private HistoryRepository historyRepository;
+    private HistoryServices historyServices;
     public boolean chekIn24Hours(){
 
-        if(historyRepository.checkLast24Hours(getId()).getAmount().compareTo(
-                historyRepository.checkMedia(getId()).getAmount().multiply(new BigDecimal(1.5)))==1){
+        if(historyServices.checkLast24hours(getId()).compareTo(
+                historyServices.balanceMedia(getId()).multiply(new BigDecimal(1.5)))==1){
 
             return true;
 
         }
 
         return false;
+
 
     }
 

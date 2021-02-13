@@ -7,15 +7,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public interface HistoryRepository extends JpaRepository<History, Integer> {
 
-    @Query("SELECT SUM(balance) FROM History WHERE date >= NOW() - INTERVAL 1 DAY")
-    Money checkLast24Hours(Integer id);
+    @Query("SELECT balance FROM History WHERE date between dateadd(hour, -24, CURRENT_TIMESTAMP) AND CURRENT_TIMESTAMP")
+    List<BigDecimal> checkLast24Hours(Integer id);
 
-    @Query("SELECT AVG(balance) from History")
-    Money checkMedia(Integer id);
+    @Query("SELECT balance from History")
+    List<BigDecimal> checkMedia(Integer id);
 
 }
